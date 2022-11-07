@@ -1,0 +1,162 @@
+String topic in java :
+
+String vs stringBuffer vs stringBulider
+
+in java project if 1000 object is their 
+900 object must be string 
+
+why string is immuitabel ? ---> no changeable 	|| stringBuffer is muitable
+eg:
+
+string s = new string("durga");			StringBuffer sb = new Stringbuffer("durga");
+s.concat("software");---> autoamativ		sb.append("software");
+		go to garbage collection
+syo(s);		op :durga			syo(sb); op : durgasoftware
+
+1)once we create string obj			1) once we create stringbuffer obj
+we arenot allowed to perform any		we are allowed to perform new opera 
+chnages in the object 
+
+2)any changes need to done we must
+create new object tp performe opreation
+
+String s1=s.concat("software");
+______________________________________________________________________________________________________
+
+2) == operator(refreance comprator) vs equals() methods(this also ment for address or reference in stringBufer ) 
+but string equals method ment for containt comperessionk, 
+
+String s1 = new String("meera");		| StringBuffer sb1 = new StringBuffer("meera");
+String s2 = new String("meera);			| StringBuffer sb2 = new StringBuffer("meera");
+sys(s1 == s2);	Address compare			| sys(sb1 == sb2);
+sys(s1.equals(s2));				| sys(sb1.equals(sb2));
+
+op: 1)false 2) true				|op : 1)false 2) false 
+
+when == become true if s1 = s2 it will return true 
+
+in obj class their are 11 public method and one private method 
+
+equals is also one object class method 
+object is super class -----> string extends it -----> string overrides equlas method to perform the contant checking
+object -----> stringbuffer extends it ----> but in string Buffer no overriden method perform so op : become false
+
+--------------------------------------------------------------------------------------------------------
+case 3: Heap and String Constant pool(scp) 
+1.6 (scp)--> method area, 1.7 in heap area
+
+String s = new String("meera");  && differn String s ="meera";
+
+in the first case two object are created || in second case one object is created
+
+heap  				|| scp
+1)when ever we use		  1)for the every laterl of string 		
+new it create in heap		    create object scp area for future purpose
+content meera s is the 		  no explicat referance variable internal referac var used by jvm
+refreance varib			reusing same object for future purpose (not refered gradbage col) be-
+				case jvm internal refer
+ 
+
+2nd case it will created in the scp if their no lateral befer that
+object creation not mandatory first jvm check in scp area we any obj cotains are not 
+if obj is their reuse if not create one (object creation optional)
+
+further one more ex: 2
+String s1 = new String("meera");
+String s2 - new String("meera");
+String s3 = "meera"; string s4 = "meera";
+
+the ques is how many object is created in heap and scp
+
+heap   			 		|| 	scp
+new keword mention 2 time so 2 obj		string later  is their jvm start create 1 scp object
+						2nd 3rd 4th check scp object by jvm their so one object is created
+						with one contant one object will their obj will be reused
+						internal meomery utlised saved 
+
+
+eg: 3 
+
+String s = new String("durga");
+s.concat("software");
+s=s.concate("solution");
+
+heap 					|| 	scp
+1)s--> durga heap area object created		1)also created in scp durg
+2)it created bcz of run time ref 
+not referenc but durgasolution			2) object created software 
+it aviable for grabage collect			3) object created solution 
+3)s referenc to new object
+durga solution 
+above to 2 refer to garbage collector				
+
+total 6 object created 
+
+eg : 4
+
+String s1 = new String("spring"); s1.concat("fall"); 
+String s2 = s1.concat("winter"); s2.concat("summer");
+sys(s1); sys(s2);
+op: spring ,springwinter
+heap				scp
+s1--> spring(1)        		spring(2)
+2)runtime created     		fall(4)
+springfall (gb no ref)(3)
+3)s2-->springwinter(5)		winter(6)
+4)runtime created		summer(8)
+springwintersummer(7)
+
+total 8  object
+
+eg 5:
+String s1 =new String("you cannot change me");
+string s2 =new String("you cannnot change me");
+sys(s1==s2); false
+String s3 ="you cannot change me";
+sys(s1==s3); false
+String s4 ="you cannot change me";
+sys(s3==s4); true object refer to same address
+string s5 ="you cannot" +"change me";---> both or constant complied at compale time
+sys(s4==s5); true object refer to same address
+String s6="you cannot";
+String s7=s6+"change me"; s6---> refer variable
+sys(s4==s7);false
+final string s8 ="you cannot"; ---> final is consant
+string s9 =s8+"change me";--> consant+ constant complied at compale time
+sys(s4==s9);true
+
+heap					|| 	scp
+1)s1-->(you cannot change me)1			you cannot change me 2
+2)s2-->(you cannot change me) 3			no refer 2
+3) no obj cre					no (2)
+4)no 						no (2)
+5)no 						no (2)
+6)no 						latiera(you cannnot)(4)
+7)s7 object created(5)				lateral (change me)(5)
+8) no						no(4)
+9) no						no(2)
+
+total (5);
+------------------------------------------------------------------------------------------
+Important notes on scp 
+                                                      chennai---> refered by multiple referenc 1cr
+in scp area  same object can reused multiple reference 
+instead creating more obj we create one obj with multiple reference
+performance improved memory operation improved advtage
+
+problem:
+if any person try change city name then all remaining will be efforted so java introdeuce immutablity
+changed mean new object created
+
+why string are immutiable --> just bcz of scp reuse object
+-------------------------------------------------------------------------------------------------
+
+why scp cocept is available only for string obj but not for stringbuffer?
+string most widely used in java sp that java team provide such special memory managment 
+stringbuffer maybe use or not so that they are not immutable
+
+why string objects are immutable where as stringbuffer obj are mutable?
+bcz scp in string is not bcz scp not in string buffer
+
+inaddition to string objects any other objects are immutable in java?
+all wapper class object are immutable (Short , Byte , Integer, Long,Float,Double,character,Boolean
