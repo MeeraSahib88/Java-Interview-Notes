@@ -1,0 +1,5 @@
+com\example\demo\service\FileUploadingServices.class
+com\example\demo\serviceImpl\AysnFileUpload.class
+com\example\demo\serviceImpl\FileUploadingServiceImpl.class
+com\example\demo\controller\FileUploadingController.class
+com\example\demo\FileUploadingApplication.class

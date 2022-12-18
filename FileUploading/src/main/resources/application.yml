@@ -1,0 +1,6 @@
+resilience4j:
+  retry:
+    instances:
+      meerasahib:
+        maxRetryAttempts: 5
+        waitDuration: 10s
